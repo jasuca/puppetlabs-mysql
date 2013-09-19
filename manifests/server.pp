@@ -26,7 +26,10 @@ class mysql::server (
   $package_ensure   = $mysql::package_ensure,
   $package_name     = $mysql::server_package_name,
   $service_name     = $mysql::service_name,
-  $service_provider = $mysql::service_provider
+  $service_provider = $mysql::service_provider,
+
+  $release = '5.5',
+  $os_arch = 'centos6-amd64',
 ) inherits mysql {
 
   Class['mysql::server'] -> Class['mysql::config']
@@ -35,9 +38,19 @@ class mysql::server (
 
   create_resources( 'class', $config_class )
 
+
+  yumrepo { 'mariadb':
+    descr    => 'MariaDB Yum Repo',
+    enabled  => 1,
+    gpgcheck => 1,
+    gpgkey   => 'https://yum.mariadb.org/RPM-GPG-KEY-MariaDB',
+    baseurl  => "http://yum.mariadb.org/${release}/${os_arch}",
+  }
+
   package { 'mysql-server':
     ensure => $package_ensure,
     name   => $package_name,
+    require => Yumrepo['mariadb']
   }
 
   if $enabled {
