@@ -70,7 +70,16 @@
 #     replicate a statement where any table matches the given wildcard pattern.
 #   [*ft_min_word_len*]     - minimum length of words to be indexed by mysql
 #   [*ft_max_word_len*]     - maximum length of words to be indexed by mysql
+#   [*wsrep_cluster_address]       - settings for Galera Cluster
+#   [*wsrep_cluster_name]          - settings for Galera Cluster
+#   [*wsrep_node_address]          - settings for Galera Cluster
+#   [*wsrep_node_name]             - settings for Galera Cluster
+#   [*wsrep_sst_auth_user]         - settings for Galera Cluster
+#   [*wsrep_sst_auth_password]     - settings for Galera Cluster
+#   [*wsrep_node_incoming_address] - settings for Galera Cluster
+#   [*wsrep_sst_donor]             - settings for Galera Cluster
 #
+
 # Actions:
 #
 # Requires:
@@ -131,7 +140,6 @@ class mysql::config(
   $ft_min_word_len                  = 'UNSET',
   $ft_max_word_len                  = 'UNSET',
 
-  $query_cache_size                 = 0,
   $wsrep_cluster_address            = 'UNSET',
   $wsrep_cluster_name               = 'UNSET',
   $wsrep_node_address               = 'UNSET',
