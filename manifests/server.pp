@@ -38,13 +38,8 @@ class mysql::server (
 
   create_resources( 'class', $config_class )
 
-
-  yumrepo { 'mariadb':
-    descr    => 'MariaDB Yum Repo',
-    enabled  => 1,
-    gpgcheck => 1,
-    gpgkey   => 'https://yum.mariadb.org/RPM-GPG-KEY-MariaDB',
-    baseurl  => "http://yum.mariadb.org/${release}/${os_arch}",
+  package { 'setroubleshoot':
+    ensure => 'present',
   }
 
   package { 'mysql-server':

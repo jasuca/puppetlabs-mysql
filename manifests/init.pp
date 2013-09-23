@@ -127,6 +127,17 @@ class mysql(
   $ssl_cert              = $mysql::params::ssl_cert,
   $ssl_key               = $mysql::params::ssl_key
 ) inherits mysql::params{
+
+  # Add Repo MariaDB
+  yumrepo { 'mariadb':
+    descr    => 'MariaDB Yum Repo',
+    enabled  => 1,
+    gpgcheck => 1,
+    gpgkey   => 'https://yum.mariadb.org/RPM-GPG-KEY-MariaDB',
+    baseurl  => "http://yum.mariadb.org/5.5/centos6-amd64",
+  }
+
+  # client
   if $package_name {
     warning('Using $package_name has been deprecated in favor of $client_package_name and will be removed.')
     $client_package_name_real = $package_name
@@ -136,6 +147,7 @@ class mysql(
   package { 'mysql_client':
     ensure => $package_ensure,
     name   => $client_package_name_real,
+    require => Yumrepo['mariadb']
   }
 
   Class['mysql::config'] -> Mysql::Db <| |>

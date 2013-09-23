@@ -11,8 +11,9 @@ nice    = 0
 <% if @log_error == 'syslog' -%>
 syslog
 <% end -%>
+
 [mysqld]
-user    = mysql
+user      = mysql
 pid-file  = <%= @pidfile %>
 socket    = <%= @socket %>
 port      = <%= @port %>
@@ -101,6 +102,29 @@ quick
 quote-names
 max_allowed_packet = <%= @max_allowed_packet %>
 [mysql]
+
+[mariadb]
+<% if @wsrep_cluster_name != 'UNSET' -%>
+default_storage_engine         = InnoDB
+binlog_format                  = ROW
+innodb_autoinc_lock_mode       = 2
+innodb_locks_unsafe_for_binlog = 1
+innodb_flush_log_at_trx_commit = 2
+
+wsrep_provider                 = /usr/lib64/galera/libgalera_smm.so
+wsrep_provider_options         = "gcache.size=32G; gcache.page_size=1G"
+wsrep_cluster_address          = <%= @wsrep_cluster_address %>
+wsrep_cluster_name             = '<%= @wsrep_cluster_name %>'
+wsrep_node_address             = <%= @wsrep_node_address %>
+wsrep_node_name                = '<%= @wsrep_node_name %>'
+wsrep_sst_method               = xtrabackup
+wsrep_sst_auth                 = <%= @wsrep_sst_auth_user %>:<%= @wsrep_sst_auth_password %>
+
+wsrep_node_incoming_address    = '<%= @wsrep_node_incoming_address %>'
+wsrep_sst_donor                = '<%= @wsrep_sst_donor %>'
+wsrep_slave_threads            = 16
+<% end -%>
+
 [isamchk]
 key_buffer    = 16M
 !includedir /etc/mysql/conf.d/

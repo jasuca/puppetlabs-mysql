@@ -47,7 +47,7 @@ class mysql::params {
   case $::osfamily {
     'RedHat': {
       $client_package_name = 'MariaDB-client'
-      $server_package_name = 'MariaDB-server'
+      $server_package_name = 'MariaDB-Galera-server'
 
       $basedir               = '/usr'
       $config_file           = '/etc/my.cnf'

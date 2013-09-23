@@ -129,7 +129,19 @@ class mysql::config(
   $replicate_wild_do_table          = 'UNSET',
   $replicate_wild_ignore_table      = 'UNSET',
   $ft_min_word_len                  = 'UNSET',
-  $ft_max_word_len                  = 'UNSET'
+  $ft_max_word_len                  = 'UNSET',
+
+  $query_cache_size                 = 0,
+  $wsrep_cluster_address            = 'UNSET',
+  $wsrep_cluster_name               = 'UNSET',
+  $wsrep_node_address               = 'UNSET',
+  $wsrep_node_name                  = 'UNSET',
+  $wsrep_sst_auth_user              = 'UNSET',
+  $wsrep_sst_auth_password          = 'UNSET',
+  $wsrep_node_incoming_address      = 'UNSET',
+  $wsrep_sst_donor                  = 'UNSET'
+
+
 ) inherits mysql {
 
   File {
