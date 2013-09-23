@@ -87,6 +87,8 @@ Installs mysql-server packages, configures my.cnf and starts mysqld service:
 
 Database login information stored in `/root/.my.cnf`.
 
+If you want to use Galera Config (wsrep_*) on the config hash. If wsrep_node_name not informed, Galera won't setup.
+
 ### mysql::db
 Creates a database with a user and assign some privileges.
 
