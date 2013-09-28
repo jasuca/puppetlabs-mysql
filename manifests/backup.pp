@@ -32,7 +32,9 @@ class mysql::backup (
   $backupcompress = true,
   $backuprotate = 30,
   $delete_before_dump = false,
-  $ensure = 'present'
+  $ensure = 'present',
+  $cron_hour = 23,
+  $cron_minute = 5
 ) {
 
   database_user { "${backupuser}@localhost":
@@ -51,8 +53,8 @@ class mysql::backup (
     ensure  => $ensure,
     command => '/usr/local/sbin/mysqlbackup.sh',
     user    => 'root',
-    hour    => 23,
-    minute  => 5,
+    hour    => $cron_hour,
+    minute  => $cron_minute,
     require => File['mysqlbackup.sh'],
   }
 
