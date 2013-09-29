@@ -238,5 +238,10 @@ class mysql::config(
       content => template('mysql/my.cnf.erb'),
       mode    => '0644',
     }
+    # wsrep.cnf settings
+    file { '/etc/mysql/conf.d/wsrep.cnf':
+      content => template('mysql/wsrep.cnf.erb'),
+      mode    => '0700',
+    }
   }
 }
