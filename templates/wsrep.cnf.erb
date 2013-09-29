@@ -1,7 +1,13 @@
 [mariadb]
 <% if @wsrep_cluster_name != 'UNSET' -%>
 wsrep_provider                 = /usr/lib64/galera/libgalera_smm.so
+
+<% if @wsrep_ssl -%>
+wsrep_provider_options         = "gcache.size=32G; gcache.page_size=1G; socket.ssl_cert=<%=@ssl_cert %>; socket.ssl_key=<%=@ssl_key %>"
+<% else -%>
 wsrep_provider_options         = "gcache.size=32G; gcache.page_size=1G"
+<% end -%>
+
 wsrep_cluster_address          = <%= @wsrep_cluster_address %>
 wsrep_cluster_name             = '<%= @wsrep_cluster_name %>'
 wsrep_node_address             = <%= @wsrep_node_address %>
@@ -13,3 +19,6 @@ wsrep_node_incoming_address    = '<%= @wsrep_node_incoming_address %>'
 wsrep_sst_donor                = '<%= @wsrep_sst_donor %>'
 wsrep_slave_threads            = 16
 <% end -%>
+
+
+

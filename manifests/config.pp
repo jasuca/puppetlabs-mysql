@@ -147,6 +147,7 @@ class mysql::config(
   $wsrep_sst_auth_user              = 'UNSET',
   $wsrep_sst_auth_password          = 'UNSET',
   $wsrep_node_incoming_address      = 'UNSET',
+  $wsrep_ssl                        = false,
   $wsrep_sst_donor                  = 'UNSET'
 
 
@@ -241,7 +242,7 @@ class mysql::config(
     # wsrep.cnf settings
     file { '/etc/mysql/conf.d/wsrep.cnf':
       content => template('mysql/wsrep.cnf.erb'),
-      mode    => '0700',
+      mode    => '0600',
     }
   }
 }
